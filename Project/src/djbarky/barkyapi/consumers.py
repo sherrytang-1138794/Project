@@ -10,6 +10,8 @@ from channels.generic.http import AsyncHttpConsumer
 # Local
 from barkyapi.models import Patient, PatientHistory, Appointment
 
+from django.contrib.auth.models import User #add
+
 
 class SimplePatientConsumer(AsyncConsumer):
     async def print_patient(self, message):
@@ -22,6 +24,10 @@ class SimplePatientHistoryConsumer(AsyncConsumer):
 class SimpleAppointmentConsumer(AsyncConsumer):
     async def print_appointment(self, message):
         print(f"WORKER: Appointment: {message['data']}")
+
+class SimpleUserConsumer(AsyncConsumer):
+    async def print_appointment(self, message):
+        print(f"WORKER: User: {message['data']}")
 
 
 # class BookmarkConsumer(AsyncHttpConsumer):

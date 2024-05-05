@@ -57,7 +57,7 @@ class ListPatientsCommand(Command):
     swapping in Django ORM for the database manager
     """
 
-    def __init__(self, order_by="admit_date"):
+    def __init__(self, order_by="id"):
         self.order_by = order_by
 
     def execute(self, data=None):
@@ -112,7 +112,7 @@ class GetPatientHistoryCommand(Command):
     """
 
     def execute(self, data: int, timestamp=None):
-        return PatientHistory.objects.get(id=data).to_domain()
+        return PatientHistory.objects.get(history_number=data).to_domain()
 
 
 class ListPatientHistoriesCommand(Command):
@@ -174,7 +174,7 @@ class GetAppointmentCommand(Command):
     """
 
     def execute(self, data: int, timestamp=None):
-        return Appointment.objects.get(id=data).to_domain()
+        return Appointment.objects.get(patient=data).to_domain()
 
 
 class ListAppointmentsCommand(Command):
@@ -182,7 +182,7 @@ class ListAppointmentsCommand(Command):
     swapping in Django ORM for the database manager
     """
 
-    def __init__(self, order_by="date_added"):
+    def __init__(self, order_by="appointment_date"):
         self.order_by = order_by
 
     def execute(self, data=None):

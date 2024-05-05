@@ -99,6 +99,42 @@ class PatientTests(APITestCase):
         self.assertTrue(status.is_success(response.status_code))
         self.assertEqual(response.data["patient"], "Marry Greenway")
 
+    #6. list patients by id
+    def test_ordering_by_id_ascending(self):
+
+        url = reverse('barkyapi:patient-list') + '?ordering=id'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['id'])
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+    
+    def test_ordering_by_id_descending(self):
+
+        url = reverse('barkyapi:patient-list') + '?ordering=-id'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['id'], reverse=True)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+
+    #7. list patients by patient's name
+    def test_ordering_by_patient_name_ascending(self):
+        url = reverse('barkyapi:patient-list') + '?ordering=patient'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['patient'])
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+    
+    def test_ordering_by_patient_name_descending(self):
+        url = reverse('barkyapi:patient-list') + '?ordering=-patient'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['patient'], reverse=True)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+
 
 
 class PatientHistoryTests(APITestCase):
@@ -197,6 +233,74 @@ class PatientHistoryTests(APITestCase):
         self.assertTrue(status.is_success(response.status_code))
         self.assertEqual(response.data["symptons"], "right hand burnt")
 
+    # list patient history by patient_id
+    def test_ordering_by_patient_id_ascending(self):
+        url = reverse('barkyapi:patienthistory-list') + '?ordering=patient_id'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['patient_id'])
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+    
+    def test_ordering_by_patient_id_descending(self):
+        url = reverse('barkyapi:patienthistory-list') + '?ordering=-patient_id'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['patient_id'], reverse=True)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+    
+    # list patient history by admit_date
+    def test_ordering_by_admit_date_ascending(self):
+        url = reverse('barkyapi:patienthistory-list') + '?ordering=admit_date'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['admit_date'])
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+    
+    def test_ordering_by_admit_date_descending(self):
+        url = reverse('barkyapi:patienthistory-list') + '?ordering=-admit_date'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['admit_date'], reverse=True)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+    
+    # list patient history by department
+    def test_ordering_by_department_ascending(self):
+        url = reverse('barkyapi:patienthistory-list') + '?ordering=department'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['department'])
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+    
+    def test_ordering_by_department_descending(self):
+        url = reverse('barkyapi:patienthistory-list') + '?ordering=-department'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['department'], reverse=True)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+
+    # test patient history by release_date
+    def test_ordering_by_release_date_ascending(self):
+        url = reverse('barkyapi:patienthistory-list') + '?ordering=release_date'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['release_date'])
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)    
+
+    def test_ordering_by_release_date_descending(self):
+        url = reverse('barkyapi:patienthistory-list') + '?ordering=-release_date'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['release_date'], reverse=True)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+
 
 class AppointmentTests(APITestCase):
     def setUp(self):
@@ -288,3 +392,154 @@ class AppointmentTests(APITestCase):
         )
         self.assertTrue(status.is_success(response.status_code))
         self.assertEqual(response.data["patient"], "Henry Brown")
+
+    # 6. list appointment by appointment_date
+    def test_ordering_by_appointment_date_ascending(self):
+        url = reverse('barkyapi:appointment-list') + '?ordering=appointment_date'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['appointment_date'])
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+
+    def test_ordering_by_appointment_descending(self):
+        url = reverse('barkyapi:appointment-list') + '?ordering=-appointment_date'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['appointment_date'], reverse=True)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+
+    # list appointment by patient's name
+    def test_ordering_by_patient_ascending(self):
+        url = reverse('barkyapi:appointment-list') + '?ordering=patient'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['patient'])
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+
+    def test_ordering_by_patient_descending(self):
+        url = reverse('barkyapi:appointment-list') + '?ordering=-patient'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['patient'], reverse=True)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+
+    # list appointment by doctor's name
+    def test_ordering_by_doctor_ascending(self):
+        url = reverse('barkyapi:appointment-list') + '?ordering=doctor'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['doctor'])
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)
+
+    def test_ordering_by_doctor_descending(self):
+        url = reverse('barkyapi:appointment-list') + '?ordering=-doctor'
+        response = self.client.get(url)
+        response_result = response.json().get('results')
+        expected_result = sorted(response_result, key=lambda i: i['doctor'], reverse=True)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response_result, expected_result)   
+
+
+class UserTests(APITestCase):
+    def setUp(self):
+        self.factory = APIRequestFactory()
+
+        self.user = User.objects.create_user(
+            username= "tester", 
+            email="tester@mail.com",
+            password="Pass12345"
+            )
+        
+        self.client = APIClient() #add
+    
+        # the simple router provides the name 'user-list' for the URL pattern: https://www.django-rest-framework.org/api-guide/routers/#simplerouter
+        self.list_url = reverse("barkyapi:user-list")
+        self.detail_url = reverse(
+            "barkyapi:user-detail", kwargs={"pk": self.user.id}
+        )
+
+    # 11. create a user
+    def test_create_user(self):
+        """
+        Ensure we can create a new user object.
+        """
+
+        # the full record is required for the POST
+        data = {
+            "username": "tester_created",
+            "email": "tester_c@mail.com",
+            "password": "Pass12345"
+        }
+
+        response = self.client.post(self.list_url, data, format="json")
+        # print("Test Create User")
+        # print(response.status_code)
+        # print(response.data)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(User.objects.count(), 2)
+        self.assertEqual(User.objects.get(id=2).username, "tester_created")
+
+    # 12. retrieve a user
+    def test_retrieve_user(self):
+        """
+        Ensure we can retrieve a user object.
+        """
+        response = self.client.get(self.detail_url)
+        # print(response.data)
+        # print(response.status_code)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response.data["username"], self.user.username)
+
+    # 13. delete a user
+    def test_delete_user(self):
+        """
+        Ensure we can delete a user object.
+        """
+        response = self.client.delete(
+            reverse("barkyapi:user-detail", kwargs={"pk": self.user.id})
+        )
+        # print("Delete User")
+        # print(response.data)
+        # print(response.status_code)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(User.objects.count(), 0)
+
+    # 14. list users
+    def test_list_users(self):
+        """
+        Ensure we can list all user objects.
+        """
+        response = self.client.get(self.list_url)
+        # print(response.data)
+        # print(response.status_code)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response.data["results"][0]["id"], self.user.id)
+
+    # 15. update a user
+    def test_update_user(self):
+        """
+        Ensure we can update a user object.
+        """
+        # the full record is required for the POST
+        data = {
+            "username": "tester",
+            "email": "tester@mail.com",
+            "password": "Update12345"
+        }
+            
+        response = self.client.put(
+            reverse("barkyapi:user-detail", kwargs={"pk": self.user.id}),
+            data,
+            format="json",
+        )
+        # print("Update User")
+        # print(response.data)
+        # print(response.status_code)
+        self.assertTrue(status.is_success(response.status_code))
+        self.assertEqual(response.data["password"], "Update12345")
+

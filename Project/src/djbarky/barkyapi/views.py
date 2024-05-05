@@ -7,7 +7,7 @@ from .models import Patient, PatientHistory, Appointment
 from .permissions import IsOwnerOrReadOnly
 from .serializers import UserSerializer, PatientSerializer, PatientHistorySerializer, AppointmentSerializer
 
-
+from rest_framework import filters #add
 # Create your views here.
 class PatientViewSet(viewsets.ModelViewSet):
     """
@@ -15,6 +15,9 @@ class PatientViewSet(viewsets.ModelViewSet):
     """
     queryset = Patient.objects.all().order_by("-id")
     serializer_class = PatientSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['id', 'patient']
+
 
 class PatientHistoryViewSet(viewsets.ModelViewSet):
     """
@@ -23,6 +26,9 @@ class PatientHistoryViewSet(viewsets.ModelViewSet):
 
     queryset = PatientHistory.objects.all().order_by("-admit_date")
     serializer_class = PatientHistorySerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['history_number', 'admit_date', 'department', 'release_date', 'patient_id']
+
 
 class AppointmentViewSet(viewsets.ModelViewSet):
     """
@@ -31,6 +37,8 @@ class AppointmentViewSet(viewsets.ModelViewSet):
 
     queryset = Appointment.objects.all().order_by("-appointment_date")
     serializer_class = AppointmentSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['id', 'appointment_date', 'patient', 'doctor']
 
 
 class UserViewSet(viewsets.ModelViewSet):

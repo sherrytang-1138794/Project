@@ -50,6 +50,6 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         # patient = serializers.PrimaryKeyRelatedField(many=True, queryset=Appointment.objects.all())
-        fields = ("id", "username")
+        fields = ("id", "username", "password")
 
 
