@@ -25,6 +25,8 @@ application = ProtocolTypeRouter(
         "channel": ChannelNameRouter(
             {
                 "patients-add": consumers.SimplePatientConsumer.as_asgi(),
+                "appointments-add": consumers.SimpleAppointmentConsumer.as_asgi(),
+                "patient-histories-add": consumers.SimplePatientHistoryConsumer.as_asgi(),
             }
         ),
     }

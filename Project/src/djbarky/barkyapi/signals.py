@@ -130,7 +130,7 @@ def send_patient_history_to_channel(sender, instance, **kwargs):
     print(f"Sending patient to channel: {instance}")
 
     async_to_sync(channel_layer.send)(
-        "histories-add", {"type": "print.patienthistory", "data": instance.patient_id}
+        "patient-histories-add", {"type": "print.patienthistory", "data": instance.history_number}
     )
 
 def send_appointment_to_channel(sender, instance, **kwargs):
