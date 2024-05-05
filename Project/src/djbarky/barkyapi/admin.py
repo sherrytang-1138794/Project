@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Bookmark, Snippet
+from .models import Patient, PatientHistory, Appointment
 
 # Register your models here.
-admin.site.register(Bookmark)
-admin.site.register(Snippet)
+admin.site.register(Patient)
+admin.site.register(PatientHistory)
+admin.site.register(Appointment)
